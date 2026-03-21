@@ -21,5 +21,17 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "murmurhash3js": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/murmurhash3js": "^3.0.3",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0"
   }
 }
