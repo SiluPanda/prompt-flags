@@ -6,13 +6,13 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 0: Project Scaffolding & Setup
 
-- [ ] **Install runtime dependency `murmurhash3js`** — Add `murmurhash3js` as a runtime dependency in `package.json`. This is the only runtime dependency; it provides deterministic 32-bit hashing for percentage rollout bucketing. | Status: not_done
-- [ ] **Install dev dependencies** — Add `typescript`, `vitest`, and `eslint` as dev dependencies in `package.json`. Verify existing `scripts` entries (`build`, `test`, `lint`) work. | Status: not_done
+- [x] **Install runtime dependency `murmurhash3js`** — Add `murmurhash3js` as a runtime dependency in `package.json`. This is the only runtime dependency; it provides deterministic 32-bit hashing for percentage rollout bucketing. | Status: done
+- [x] **Install dev dependencies** — Add `typescript`, `vitest`, and `eslint` as dev dependencies in `package.json`. Verify existing `scripts` entries (`build`, `test`, `lint`) work. | Status: done
 - [ ] **Add `bin` entry to `package.json`** — Add `"bin": { "prompt-flags": "./bin/prompt-flags.js" }` to `package.json` so the CLI binary is registered when the package is installed globally or via npx. | Status: not_done
 - [ ] **Create `bin/prompt-flags.js` CLI entry point** — Create the `bin/` directory and `bin/prompt-flags.js` file with a `#!/usr/bin/env node` shebang that requires the compiled CLI module from `dist/cli.js`. | Status: not_done
 - [ ] **Create directory structure** — Create all directories specified in the file structure: `src/evaluator/`, `src/config/`, `src/cli/`, `src/utils/`, `src/__tests__/evaluator/`, `src/__tests__/config/`, `src/__tests__/fixtures/`, `src/__tests__/fixtures/invalid-configs/`. | Status: not_done
-- [ ] **Configure Vitest** — Add a `vitest.config.ts` (or configure in `package.json`) so that `npm run test` runs Vitest against `src/__tests__/**/*.test.ts`. | Status: not_done
-- [ ] **Configure ESLint** — Set up ESLint configuration (e.g., `.eslintrc` or `eslint.config.js`) for TypeScript linting of the `src/` directory. | Status: not_done
+- [x] **Configure Vitest** — Add a `vitest.config.ts` (or configure in `package.json`) so that `npm run test` runs Vitest against `src/__tests__/**/*.test.ts`. | Status: done
+- [x] **Configure ESLint** — Set up ESLint configuration (e.g., `.eslintrc` or `eslint.config.js`) for TypeScript linting of the `src/` directory. | Status: done
 - [ ] **Add `.gitignore` entries** — Ensure `dist/`, `node_modules/`, and any temporary test output directories are gitignored. | Status: not_done
 
 ---
@@ -23,15 +23,15 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 - [ ] **Define `EvaluationContext` interface** — Include required `key: string` and optional fields: `plan`, `region`, `language`, `email`, `organization`, `role`, `custom: Record<string, string | number | boolean | string[]>`. | Status: not_done
 - [ ] **Define `FlagDefinition` interface** — Include fields: `type` (union of flag types), `description`, `enabled`, `variants` (Record of name to `{ value: T }`), `defaultVariant`, `rules` (array of `TargetingRule`), `tags`. | Status: not_done
 - [ ] **Define `TargetingRule` interface** — Include `description?`, `conditions?` (array of `RuleCondition`), `segment?` (string reference), `serve` (`ServeDirective`). | Status: not_done
-- [ ] **Define `RuleCondition` interface** — Include `attribute`, `operator` (`ComparisonOperator`), `value?`, `values?`, `negate?`. | Status: not_done
+- [x] **Define `RuleCondition` interface** — Include `attribute`, `operator` (`ComparisonOperator`), `value?`, `values?`, `negate?`. | Status: done
 - [ ] **Define `ComparisonOperator` type** — Union of all 16 operators: `equals`, `notEquals`, `in`, `notIn`, `contains`, `startsWith`, `endsWith`, `greaterThan`, `lessThan`, `greaterThanOrEqual`, `lessThanOrEqual`, `matches`, `exists`, `notExists`, `semverEquals`, `semverGreaterThan`, `semverLessThan`. | Status: not_done
-- [ ] **Define `ServeDirective` type** — Union of `{ variant: string }` (fixed) and `{ rollout: Array<{ variant: string; weight: number }> }` (percentage). | Status: not_done
-- [ ] **Define `ModelConfig` interface** — Include `model: string` (required) and optional fields: `temperature`, `maxTokens`, `topP`, `frequencyPenalty`, `presencePenalty`, `stop`, plus index signature `[key: string]: unknown` for provider-specific parameters. | Status: not_done
-- [ ] **Define `EvaluationResult<T>` interface** — Include `flagKey`, `variantKey`, `value: T`, `reason` (`EvaluationReason`), `flagEnabled`. | Status: not_done
-- [ ] **Define `EvaluationReason` type** — Union of `'rule_match'`, `'default'`, `'disabled'`, `'error'`, `'override'`. | Status: not_done
+- [x] **Define `ServeDirective` type** — Union of `{ variant: string }` (fixed) and `{ rollout: Array<{ variant: string; weight: number }> }` (percentage). | Status: done
+- [x] **Define `ModelConfig` interface** — Include `model: string` (required) and optional fields: `temperature`, `maxTokens`, `topP`, `frequencyPenalty`, `presencePenalty`, `stop`, plus index signature `[key: string]: unknown` for provider-specific parameters. | Status: done
+- [x] **Define `EvaluationResult<T>` interface** — Include `flagKey`, `variantKey`, `value: T`, `reason` (`EvaluationReason`), `flagEnabled`. | Status: done
+- [x] **Define `EvaluationReason` type** — Union of `'rule_match'`, `'default'`, `'disabled'`, `'error'`, `'override'`. | Status: done
 - [ ] **Define `EvaluationEvent` interface** — Include `timestamp` (ISO 8601), `flagKey`, `variantKey`, `flagType`, `reason`, `contextKey`, `ruleIndex`. | Status: not_done
 - [ ] **Define `ConfigChangeEvent` interface** — Include `timestamp` (ISO 8601), `added: string[]`, `modified: string[]`, `removed: string[]`. | Status: not_done
-- [ ] **Define `SegmentDefinition` interface** — Include `description?` and `conditions: RuleCondition[]`. | Status: not_done
+- [x] **Define `SegmentDefinition` interface** — Include `description?` and `conditions: RuleCondition[]`. | Status: done
 - [ ] **Define `FlagConfiguration` interface** — Top-level config shape: `version: number`, `description?`, `updatedAt?`, `segments?`, `flags: Record<string, FlagDefinition>`, `environments?`. | Status: not_done
 - [ ] **Define `EnvironmentOverride` interface** — Shape for per-environment flag overrides: `flags: Record<string, Partial<FlagDefinition>>`. | Status: not_done
 - [ ] **Define `FlagClient` interface** — All public API methods: `getPrompt`, `getModel`, `getConfig`, `isEnabled`, `evaluate`, `allFlags`, `getFlagKeys`, `getFlag`, `getSegments`, `overrideForTest`, `overrideValueForTest`, `clearOverride`, `clearAllOverrides`, `reload`, `dispose`. | Status: not_done
@@ -40,11 +40,11 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Error Classes (`src/errors.ts`)
 
-- [ ] **Implement `FlagError` base class** — Extends `Error`. Add a `readonly code: string` property. | Status: not_done
-- [ ] **Implement `FlagNotFoundError`** — Extends `FlagError`. Code: `'FLAG_NOT_FOUND'`. Include `readonly flagKey: string`. | Status: not_done
-- [ ] **Implement `FlagTypeMismatchError`** — Extends `FlagError`. Code: `'FLAG_TYPE_MISMATCH'`. Include `readonly flagKey`, `expectedType`, `actualType`. | Status: not_done
+- [x] **Implement `FlagError` base class** — Extends `Error`. Add a `readonly code: string` property. | Status: done
+- [x] **Implement `FlagNotFoundError`** — Extends `FlagError`. Code: `'FLAG_NOT_FOUND'`. Include `readonly flagKey: string`. | Status: done
+- [x] **Implement `FlagTypeMismatchError`** — Extends `FlagError`. Code: `'FLAG_TYPE_MISMATCH'`. Include `readonly flagKey`, `expectedType`, `actualType`. | Status: done
 - [ ] **Implement `FlagConfigError`** — Extends `FlagError`. Code: `'FLAG_CONFIG_ERROR'`. Include `readonly configPath?` and `validationErrors: string[]`. | Status: not_done
-- [ ] **Implement `VariantNotFoundError`** — Extends `FlagError`. Code: `'VARIANT_NOT_FOUND'`. Include `readonly flagKey`, `variantKey`. | Status: not_done
+- [x] **Implement `VariantNotFoundError`** — Extends `FlagError`. Code: `'VARIANT_NOT_FOUND'`. Include `readonly flagKey`, `variantKey`. | Status: done
 - [ ] **Implement `SegmentNotFoundError`** — Extends `FlagError`. Code: `'SEGMENT_NOT_FOUND'`. Include `readonly flagKey`, `segmentKey`. | Status: not_done
 - [ ] **Implement `ClientDisposedError`** — Extends `FlagError`. Code: `'CLIENT_DISPOSED'`. | Status: not_done
 
@@ -52,40 +52,40 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Hash Function (`src/hash.ts`)
 
-- [ ] **Implement `computeBucket` function** — Takes `contextKey: string` and `flagKey: string`. Computes `murmurhash3_x86_32(contextKey + "/" + flagKey) % 10000`. Returns an integer in `[0, 9999]`. Import `murmurhash3js` for the hash computation. | Status: not_done
+- [x] **Implement `computeBucket` function** — Takes `contextKey: string` and `flagKey: string`. Computes `murmurhash3_x86_32(contextKey + "/" + flagKey) % 10000`. Returns an integer in `[0, 9999]`. Import `murmurhash3js` for the hash computation. | Status: done
 
 ---
 
 ## Phase 1: Context Utilities (`src/utils/context.ts`)
 
-- [ ] **Implement `resolveAttribute` function** — Given an `EvaluationContext` and an attribute path string (e.g., `"plan"`, `"custom.betaTester"`), resolve the value from the context using dot-notation traversal. Return `undefined` if the path does not resolve. | Status: not_done
-- [ ] **Implement `mergeContexts` function** — Merge a default context with a per-evaluation context. Per-evaluation fields override defaults. Handle nested `custom` object merging. | Status: not_done
+- [x] **Implement `resolveAttribute` function** — Given an `EvaluationContext` and an attribute path string (e.g., `"plan"`, `"custom.betaTester"`), resolve the value from the context using dot-notation traversal. Return `undefined` if the path does not resolve. | Status: done
+- [x] **Implement `mergeContexts` function** — Merge a default context with a per-evaluation context. Per-evaluation fields override defaults. Handle nested `custom` object merging. | Status: done
 - [ ] **Implement `validateContext` function** — Validate the context: warn if `key` is missing or empty (generate random key via `crypto.randomUUID()`), coerce non-string `key` to string, warn on invalid `custom` value types. | Status: not_done
 
 ---
 
 ## Phase 1: Condition Evaluator (`src/evaluator/condition-evaluator.ts`)
 
-- [ ] **Implement operator dispatch** — Create a function `evaluateCondition(condition: RuleCondition, context: EvaluationContext): boolean` that resolves the attribute from the context, dispatches to the appropriate operator handler, and applies `negate` if set. | Status: not_done
-- [ ] **Implement `equals` operator** — Exact equality comparison (`===`) for string, number, boolean values. Return `false` if attribute is missing. | Status: not_done
-- [ ] **Implement `notEquals` operator** — Negated equality comparison. Return `false` if attribute is missing. | Status: not_done
-- [ ] **Implement `in` operator** — Check if the context attribute value is in the `values` array. Return `false` if attribute is missing. | Status: not_done
-- [ ] **Implement `notIn` operator** — Check if the context attribute value is NOT in the `values` array. Return `false` if attribute is missing. | Status: not_done
-- [ ] **Implement `contains` operator** — String substring check. Return `false` if attribute is missing or not a string. | Status: not_done
-- [ ] **Implement `startsWith` operator** — String prefix check. Return `false` if attribute is missing or not a string. | Status: not_done
-- [ ] **Implement `endsWith` operator** — String suffix check. Return `false` if attribute is missing or not a string. | Status: not_done
-- [ ] **Implement `greaterThan` operator** — Numeric greater-than comparison. Return `false` if attribute is missing or not a number. | Status: not_done
-- [ ] **Implement `lessThan` operator** — Numeric less-than comparison. Return `false` if attribute is missing or not a number. | Status: not_done
-- [ ] **Implement `greaterThanOrEqual` operator** — Numeric >= comparison. Return `false` if attribute is missing or not a number. | Status: not_done
-- [ ] **Implement `lessThanOrEqual` operator** — Numeric <= comparison. Return `false` if attribute is missing or not a number. | Status: not_done
-- [ ] **Implement `matches` operator** — Regex match using `new RegExp(value).test(attribute)`. Return `false` if attribute is missing or not a string. Handle invalid regex gracefully (return `false`, emit error). | Status: not_done
-- [ ] **Implement `exists` operator** — Return `true` if the attribute is present and not null/undefined. | Status: not_done
-- [ ] **Implement `notExists` operator** — Return `true` if the attribute is absent, null, or undefined. | Status: not_done
+- [x] **Implement operator dispatch** — Create a function `evaluateCondition(condition: RuleCondition, context: EvaluationContext): boolean` that resolves the attribute from the context, dispatches to the appropriate operator handler, and applies `negate` if set. | Status: done
+- [x] **Implement `equals` operator** — Exact equality comparison (`===`) for string, number, boolean values. Return `false` if attribute is missing. | Status: done
+- [x] **Implement `notEquals` operator** — Negated equality comparison. Return `false` if attribute is missing. | Status: done
+- [x] **Implement `in` operator** — Check if the context attribute value is in the `values` array. Return `false` if attribute is missing. | Status: done
+- [x] **Implement `notIn` operator** — Check if the context attribute value is NOT in the `values` array. Return `false` if attribute is missing. | Status: done
+- [x] **Implement `contains` operator** — String substring check. Return `false` if attribute is missing or not a string. | Status: done
+- [x] **Implement `startsWith` operator** — String prefix check. Return `false` if attribute is missing or not a string. | Status: done
+- [x] **Implement `endsWith` operator** — String suffix check. Return `false` if attribute is missing or not a string. | Status: done
+- [x] **Implement `greaterThan` operator** — Numeric greater-than comparison. Return `false` if attribute is missing or not a number. | Status: done
+- [x] **Implement `lessThan` operator** — Numeric less-than comparison. Return `false` if attribute is missing or not a number. | Status: done
+- [x] **Implement `greaterThanOrEqual` operator** — Numeric >= comparison. Return `false` if attribute is missing or not a number. | Status: done
+- [x] **Implement `lessThanOrEqual` operator** — Numeric <= comparison. Return `false` if attribute is missing or not a number. | Status: done
+- [x] **Implement `matches` operator** — Regex match using `new RegExp(value).test(attribute)`. Return `false` if attribute is missing or not a string. Handle invalid regex gracefully (return `false`, emit error). | Status: done
+- [x] **Implement `exists` operator** — Return `true` if the attribute is present and not null/undefined. | Status: done
+- [x] **Implement `notExists` operator** — Return `true` if the attribute is absent, null, or undefined. | Status: done
 - [ ] **Implement `semverEquals` operator** — Parse both sides as `MAJOR.MINOR.PATCH` and compare for equality. Return `false` if either side is not valid semver. | Status: not_done
 - [ ] **Implement `semverGreaterThan` operator** — Semver greater-than comparison. Return `false` if either side is not valid semver. | Status: not_done
 - [ ] **Implement `semverLessThan` operator** — Semver less-than comparison. Return `false` if either side is not valid semver. | Status: not_done
 - [ ] **Implement inline semver parser** — Minimal parser for `MAJOR.MINOR.PATCH` format. No dependency on a semver library. Return parsed `[major, minor, patch]` tuple or null for invalid input. | Status: not_done
-- [ ] **Handle missing attributes in conditions** — For all operators except `exists`/`notExists`, return `false` when the referenced attribute is not present in the context (fail-safe behavior). | Status: not_done
+- [x] **Handle missing attributes in conditions** — For all operators except `exists`/`notExists`, return `false` when the referenced attribute is not present in the context (fail-safe behavior). | Status: done
 
 ---
 
@@ -98,27 +98,27 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Rollout Engine (`src/evaluator/rollout.ts`)
 
-- [ ] **Implement `selectVariantFromRollout` function** — Given a rollout array `[{ variant, weight }]`, a context key, and a flag key, compute the bucket via `computeBucket`, normalize weights to 10000 buckets, and select the variant whose cumulative boundary first exceeds the bucket value. | Status: not_done
-- [ ] **Handle weight normalization** — Compute `totalWeight = sum of all weights`. For each variant, compute cumulative boundary as `cumulativeWeight * 10000 / totalWeight`. Handle edge case where totalWeight is 0 (return first variant or default). | Status: not_done
-- [ ] **Handle single-variant rollout** — If rollout has a single variant at weight 100 (or any weight), always return that variant. | Status: not_done
+- [x] **Implement `selectVariantFromRollout` function** — Given a rollout array `[{ variant, weight }]`, a context key, and a flag key, compute the bucket via `computeBucket`, normalize weights to 10000 buckets, and select the variant whose cumulative boundary first exceeds the bucket value. | Status: done
+- [x] **Handle weight normalization** — Compute `totalWeight = sum of all weights`. For each variant, compute cumulative boundary as `cumulativeWeight * 10000 / totalWeight`. Handle edge case where totalWeight is 0 (return first variant or default). | Status: done
+- [x] **Handle single-variant rollout** — If rollout has a single variant at weight 100 (or any weight), always return that variant. | Status: done
 
 ---
 
 ## Phase 1: Rule Matcher (`src/evaluator/rule-matcher.ts`)
 
-- [ ] **Implement `matchRules` function** — Given a flag's rules array, an evaluation context, and the segments map, evaluate rules in order (first-match-wins). For each rule: evaluate segment conditions (if segment is referenced), evaluate inline conditions, AND all conditions together. Return the matching rule's serve directive and rule index, or null if no rule matches. | Status: not_done
+- [x] **Implement `matchRules` function** — Given a flag's rules array, an evaluation context, and the segments map, evaluate rules in order (first-match-wins). For each rule: evaluate segment conditions (if segment is referenced), evaluate inline conditions, AND all conditions together. Return the matching rule's serve directive and rule index, or null if no rule matches. | Status: done
 - [ ] **Handle rules with both segment and inline conditions** — When a rule has both `segment` and `conditions`, all segment conditions AND all inline conditions must be true. | Status: not_done
-- [ ] **Handle empty conditions** — A rule with empty or omitted `conditions` array (and no segment) matches all contexts (catch-all rule). | Status: not_done
-- [ ] **Handle serve directive resolution** — For a fixed variant serve (`{ variant: string }`), return the variant key directly. For a rollout serve (`{ rollout: [...] }`), delegate to the rollout engine. | Status: not_done
+- [x] **Handle empty conditions** — A rule with empty or omitted `conditions` array (and no segment) matches all contexts (catch-all rule). | Status: done
+- [x] **Handle serve directive resolution** — For a fixed variant serve (`{ variant: string }`), return the variant key directly. For a rollout serve (`{ rollout: [...] }`), delegate to the rollout engine. | Status: done
 
 ---
 
 ## Phase 1: Evaluation Entry Point (`src/evaluator/index.ts`)
 
-- [ ] **Implement `evaluateFlag` function** — Given a flag definition, evaluation context, and segments map, orchestrate the full evaluation: check if flag is enabled (return default with reason `'disabled'` if not), match rules, resolve rollout if needed, look up variant value, return `EvaluationResult`. | Status: not_done
-- [ ] **Handle disabled flags** — If `flag.enabled === false`, return the default variant with reason `'disabled'`. | Status: not_done
-- [ ] **Handle no rule match** — If no rule matches, return the default variant with reason `'default'`. | Status: not_done
-- [ ] **Handle evaluation errors** — Wrap rule evaluation in try/catch. On error, return the default variant with reason `'error'` and emit error via `onError`. | Status: not_done
+- [x] **Implement `evaluateFlag` function** — Given a flag definition, evaluation context, and segments map, orchestrate the full evaluation: check if flag is enabled (return default with reason `'disabled'` if not), match rules, resolve rollout if needed, look up variant value, return `EvaluationResult`. | Status: done
+- [x] **Handle disabled flags** — If `flag.enabled === false`, return the default variant with reason `'disabled'`. | Status: done
+- [x] **Handle no rule match** — If no rule matches, return the default variant with reason `'default'`. | Status: done
+- [x] **Handle evaluation errors** — Wrap rule evaluation in try/catch. On error, return the default variant with reason `'error'` and emit error via `onError`. | Status: done
 
 ---
 
@@ -127,7 +127,7 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 - [ ] **Implement JSON file loading** — Read a JSON file from `configPath` using `node:fs/promises.readFileSync` (synchronous for `createClient`). Parse with `JSON.parse`. Wrap parse errors in `FlagConfigError`. | Status: not_done
 - [ ] **Implement file existence check** — Check that `configPath` exists before reading. Throw `FlagConfigError` with descriptive message if not found. | Status: not_done
 - [ ] **Detect file format by extension** — Check `.json`, `.yaml`, `.yml` extensions on `configPath` to determine parser. Default to JSON for unknown extensions. | Status: not_done
-- [ ] **Support inline configuration** — When `config` is provided instead of `configPath`, use the inline object directly (skip file loading). | Status: not_done
+- [x] **Support inline configuration** — When `config` is provided instead of `configPath`, use the inline object directly (skip file loading). | Status: done
 - [ ] **Validate mutual exclusivity** — Throw `FlagConfigError` if both `configPath` and `config` are provided, or if neither is provided. | Status: not_done
 
 ---
@@ -151,25 +151,25 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: FlagClient Implementation (`src/client.ts`)
 
-- [ ] **Implement `FlagClient` class** — Internal class holding configuration, segments map, overrides map, disposed state, and event callbacks. | Status: not_done
-- [ ] **Implement `evaluate<T>` method** — Evaluate any flag by key: look up flag, validate context, merge default context, delegate to evaluator, emit evaluation event, return `EvaluationResult<T>`. Throw `FlagNotFoundError` if key not found. Throw `ClientDisposedError` if disposed. | Status: not_done
-- [ ] **Implement `getPrompt` method** — Call `evaluate`, assert flag type is `'prompt'`, throw `FlagTypeMismatchError` if not. Return the string value. | Status: not_done
-- [ ] **Implement `getModel` method** — Call `evaluate`, assert flag type is `'model'`, throw `FlagTypeMismatchError` if not. Return the `ModelConfig` value. | Status: not_done
-- [ ] **Implement `getConfig<T>` method** — Call `evaluate`, assert flag type is `'config'`, throw `FlagTypeMismatchError` if not. Return the typed config value. | Status: not_done
-- [ ] **Implement `isEnabled` method** — Call `evaluate`, assert flag type is `'boolean'`, throw `FlagTypeMismatchError` if not. Return the boolean value. | Status: not_done
+- [x] **Implement `FlagClient` class** — Internal class holding configuration, segments map, overrides map, disposed state, and event callbacks. | Status: done
+- [x] **Implement `evaluate<T>` method** — Evaluate any flag by key: look up flag, validate context, merge default context, delegate to evaluator, emit evaluation event, return `EvaluationResult<T>`. Throw `FlagNotFoundError` if key not found. Throw `ClientDisposedError` if disposed. | Status: done
+- [x] **Implement `getPrompt` method** — Call `evaluate`, assert flag type is `'prompt'`, throw `FlagTypeMismatchError` if not. Return the string value. | Status: done
+- [x] **Implement `getModel` method** — Call `evaluate`, assert flag type is `'model'`, throw `FlagTypeMismatchError` if not. Return the `ModelConfig` value. | Status: done
+- [x] **Implement `getConfig<T>` method** — Call `evaluate`, assert flag type is `'config'`, throw `FlagTypeMismatchError` if not. Return the typed config value. | Status: done
+- [x] **Implement `isEnabled` method** — Call `evaluate`, assert flag type is `'boolean'`, throw `FlagTypeMismatchError` if not. Return the boolean value. | Status: done
 - [ ] **Implement `allFlags` method** — Iterate all flag keys, evaluate each, return `Record<string, EvaluationResult>`. | Status: not_done
-- [ ] **Implement `getFlagKeys` method** — Return array of all flag keys in the configuration. | Status: not_done
-- [ ] **Implement `getFlag` method** — Return the `FlagDefinition` for a given key, or `null` if not found. | Status: not_done
+- [x] **Implement `getFlagKeys` method** — Return array of all flag keys in the configuration. | Status: done
+- [x] **Implement `getFlag` method** — Return the `FlagDefinition` for a given key, or `null` if not found. | Status: done
 - [ ] **Implement `getSegments` method** — Return the segments map. | Status: not_done
-- [ ] **Implement evaluation event emission** — After every evaluation, call `onEvaluation` callback (if provided) with an `EvaluationEvent` containing: `timestamp` (ISO 8601), `flagKey`, `variantKey`, `flagType`, `reason`, `contextKey`, `ruleIndex`. | Status: not_done
-- [ ] **Implement error event emission** — On evaluation errors, call `onError` callback (if provided, else `console.error`) with a `FlagError`. | Status: not_done
+- [x] **Implement evaluation event emission** — After every evaluation, call `onEvaluation` callback (if provided) with an `EvaluationEvent` containing: `timestamp` (ISO 8601), `flagKey`, `variantKey`, `flagType`, `reason`, `contextKey`, `ruleIndex`. | Status: done
+- [x] **Implement error event emission** — On evaluation errors, call `onError` callback (if provided, else `console.error`) with a `FlagError`. | Status: done
 
 ---
 
 ## Phase 1: `createClient` Factory (`src/index.ts`)
 
-- [ ] **Implement `createClient` function** — Accept `FlagClientConfig`, load config (from file or inline), validate, create and return `FlagClient` instance. Throw `FlagConfigError` on validation failure. | Status: not_done
-- [ ] **Export all public types** — Re-export all types, interfaces, error classes, and the `createClient` function from `src/index.ts`. | Status: not_done
+- [x] **Implement `createClient` function** — Accept `FlagClientConfig`, load config (from file or inline), validate, create and return `FlagClient` instance. Throw `FlagConfigError` on validation failure. | Status: done
+- [x] **Export all public types** — Re-export all types, interfaces, error classes, and the `createClient` function from `src/index.ts`. | Status: done
 
 ---
 
@@ -200,11 +200,11 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Unit Tests — Rule Matcher
 
-- [ ] **Test single-condition rule match** — Rule with one condition that matches. | Status: not_done
+- [x] **Test single-condition rule match** — Rule with one condition that matches. | Status: done
 - [ ] **Test multi-condition AND logic** — Rule with multiple conditions: all match (pass), one fails (fail). | Status: not_done
 - [ ] **Test first-match-wins ordering** — Three rules where the first matches; verify second and third are not selected. | Status: not_done
-- [ ] **Test empty conditions catch-all** — Rule with empty conditions array matches all contexts. | Status: not_done
-- [ ] **Test empty rules array** — No rules defined; default variant should be served. | Status: not_done
+- [x] **Test empty conditions catch-all** — Rule with empty conditions array matches all contexts. | Status: done
+- [x] **Test empty rules array** — No rules defined; default variant should be served. | Status: done
 - [ ] **Test rule with segment reference** — Rule referencing a segment; segment conditions match and don't match. | Status: not_done
 - [ ] **Test rule with both segment and inline conditions** — Both must match. | Status: not_done
 - [ ] **Test invalid segment reference** — Rule references a segment that doesn't exist; expect `SegmentNotFoundError`. | Status: not_done
@@ -213,10 +213,10 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Unit Tests — Rollout
 
-- [ ] **Test deterministic bucketing** — Same `key + flagKey` always produces the same variant. | Status: not_done
+- [x] **Test deterministic bucketing** — Same `key + flagKey` always produces the same variant. | Status: done
 - [ ] **Test bucketing independence** — Different flag keys produce different variants for the same user key. | Status: not_done
 - [ ] **Test weight distribution** — Simulate 100,000 random keys for a 70/30 rollout; verify distribution is within 1% tolerance. | Status: not_done
-- [ ] **Test 50/50 split** — Equal-weight rollout distributes approximately evenly. | Status: not_done
+- [x] **Test 50/50 split** — Equal-weight rollout distributes approximately evenly. | Status: done
 - [ ] **Test single-variant rollout (100%)** — All users receive the single variant. | Status: not_done
 - [ ] **Test zero-weight variant** — Variant with weight 0 receives no traffic. | Status: not_done
 - [ ] **Test rollout weights that do not sum to 100** — E.g., weights 1, 2, 3 (sum 6) should still distribute proportionally. | Status: not_done
@@ -259,7 +259,7 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 ## Phase 1: Unit Tests — Configuration Loader
 
 - [ ] **Test loading from JSON file** — Valid JSON file loads successfully. | Status: not_done
-- [ ] **Test loading from inline config** — Inline `config` object loads successfully. | Status: not_done
+- [x] **Test loading from inline config** — Inline `config` object loads successfully. | Status: done
 - [ ] **Test file-not-found error** — Nonexistent `configPath` throws `FlagConfigError`. | Status: not_done
 - [ ] **Test JSON parse error** — Malformed JSON (e.g., trailing comma) throws `FlagConfigError`. | Status: not_done
 - [ ] **Test mutual exclusivity** — Both `configPath` and `config` provided throws error. Neither provided throws error. | Status: not_done
@@ -268,8 +268,8 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Unit Tests — Error Classes
 
-- [ ] **Test `FlagNotFoundError` properties** — Verify `code`, `flagKey`, `message`. | Status: not_done
-- [ ] **Test `FlagTypeMismatchError` properties** — Verify `code`, `flagKey`, `expectedType`, `actualType`. | Status: not_done
+- [x] **Test `FlagNotFoundError` properties** — Verify `code`, `flagKey`, `message`. | Status: done
+- [x] **Test `FlagTypeMismatchError` properties** — Verify `code`, `flagKey`, `expectedType`, `actualType`. | Status: done
 - [ ] **Test `FlagConfigError` properties** — Verify `code`, `configPath`, `validationErrors`. | Status: not_done
 - [ ] **Test `VariantNotFoundError` properties** — Verify `code`, `flagKey`, `variantKey`. | Status: not_done
 - [ ] **Test `SegmentNotFoundError` properties** — Verify `code`, `flagKey`, `segmentKey`. | Status: not_done
@@ -280,21 +280,21 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 1: Unit Tests — Client
 
-- [ ] **Test `getPrompt` returns prompt string** — Prompt flag evaluated correctly. | Status: not_done
-- [ ] **Test `getPrompt` throws on wrong type** — Calling `getPrompt` on a model flag throws `FlagTypeMismatchError`. | Status: not_done
-- [ ] **Test `getModel` returns `ModelConfig`** — Model flag evaluated correctly. | Status: not_done
-- [ ] **Test `getModel` throws on wrong type** — Calling `getModel` on a prompt flag throws `FlagTypeMismatchError`. | Status: not_done
-- [ ] **Test `getConfig` returns typed config** — Config flag evaluated correctly. | Status: not_done
-- [ ] **Test `isEnabled` returns boolean** — Boolean flag evaluated correctly. | Status: not_done
+- [x] **Test `getPrompt` returns prompt string** — Prompt flag evaluated correctly. | Status: done
+- [x] **Test `getPrompt` throws on wrong type** — Calling `getPrompt` on a model flag throws `FlagTypeMismatchError`. | Status: done
+- [x] **Test `getModel` returns `ModelConfig`** — Model flag evaluated correctly. | Status: done
+- [x] **Test `getModel` throws on wrong type** — Calling `getModel` on a prompt flag throws `FlagTypeMismatchError`. | Status: done
+- [x] **Test `getConfig` returns typed config** — Config flag evaluated correctly. | Status: done
+- [x] **Test `isEnabled` returns boolean** — Boolean flag evaluated correctly. | Status: done
 - [ ] **Test `isEnabled` throws on wrong type** — Calling `isEnabled` on a prompt flag throws `FlagTypeMismatchError`. | Status: not_done
-- [ ] **Test `evaluate` returns full `EvaluationResult`** — All fields populated correctly. | Status: not_done
+- [x] **Test `evaluate` returns full `EvaluationResult`** — All fields populated correctly. | Status: done
 - [ ] **Test `allFlags` returns all evaluations** — Every flag in config is evaluated and returned. | Status: not_done
-- [ ] **Test `getFlagKeys` returns all keys** — Returns all flag key strings. | Status: not_done
-- [ ] **Test `getFlag` returns flag definition** — Returns definition for known key, null for unknown. | Status: not_done
+- [x] **Test `getFlagKeys` returns all keys** — Returns all flag key strings. | Status: done
+- [x] **Test `getFlag` returns flag definition** — Returns definition for known key, null for unknown. | Status: done
 - [ ] **Test `getSegments` returns segments** — Returns the segments map. | Status: not_done
-- [ ] **Test flag not found throws `FlagNotFoundError`** — Evaluating a nonexistent flag key throws. | Status: not_done
-- [ ] **Test disabled flag returns default with reason `'disabled'`** — Flag with `enabled: false` returns default variant. | Status: not_done
-- [ ] **Test default variant returned when no rule matches** — Reason is `'default'`. | Status: not_done
+- [x] **Test flag not found throws `FlagNotFoundError`** — Evaluating a nonexistent flag key throws. | Status: done
+- [x] **Test disabled flag returns default with reason `'disabled'`** — Flag with `enabled: false` returns default variant. | Status: done
+- [x] **Test default variant returned when no rule matches** — Reason is `'default'`. | Status: done
 - [ ] **Test context with missing key generates warning** — Missing `key` triggers warning and random key generation. | Status: not_done
 - [ ] **Test default context merging** — Default context attributes are overridden by per-evaluation context. | Status: not_done
 
@@ -321,16 +321,16 @@ This file tracks all implementation tasks derived from [SPEC.md](./SPEC.md). Tas
 
 ## Phase 2: Test Overrides
 
-- [ ] **Implement `overrideForTest` method** — Store a mapping from flag key to variant key. When an override is active, `evaluate` returns the overridden variant's value with reason `'override'`. | Status: not_done
+- [x] **Implement `overrideForTest` method** — Store a mapping from flag key to variant key. When an override is active, `evaluate` returns the overridden variant's value with reason `'override'`. | Status: done
 - [ ] **Implement `overrideValueForTest` method** — Store a mapping from flag key to an arbitrary value. When active, `evaluate` returns the overridden value with reason `'override'`. | Status: not_done
-- [ ] **Implement `clearOverride` method** — Remove the override for a specific flag key. | Status: not_done
-- [ ] **Implement `clearAllOverrides` method** — Remove all overrides. | Status: not_done
-- [ ] **Test `overrideForTest` with valid variant** — Override returns the specified variant value. | Status: not_done
+- [x] **Implement `clearOverride` method** — Remove the override for a specific flag key. | Status: done
+- [x] **Implement `clearAllOverrides` method** — Remove all overrides. | Status: done
+- [x] **Test `overrideForTest` with valid variant** — Override returns the specified variant value. | Status: done
 - [ ] **Test `overrideValueForTest` with arbitrary value** — Override returns the arbitrary value. | Status: not_done
-- [ ] **Test overrides take precedence over rules** — With an override set, targeting rules are skipped. | Status: not_done
-- [ ] **Test `clearOverride` removes single override** — After clearing, normal evaluation resumes for that flag. | Status: not_done
-- [ ] **Test `clearAllOverrides` removes all overrides** — After clearing, normal evaluation resumes for all flags. | Status: not_done
-- [ ] **Test evaluation reason is `'override'`** — When an override is active, the result reason is `'override'`. | Status: not_done
+- [x] **Test overrides take precedence over rules** — With an override set, targeting rules are skipped. | Status: done
+- [x] **Test `clearOverride` removes single override** — After clearing, normal evaluation resumes for that flag. | Status: done
+- [x] **Test `clearAllOverrides` removes all overrides** — After clearing, normal evaluation resumes for all flags. | Status: done
+- [x] **Test evaluation reason is `'override'`** — When an override is active, the result reason is `'override'`. | Status: done
 
 ---
 
