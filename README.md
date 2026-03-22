@@ -3,6 +3,7 @@
 AI-native feature flags for prompt variants, model selection, and LLM parameter configuration.
 
 [![npm version](https://img.shields.io/npm/v/prompt-flags.svg)](https://www.npmjs.com/package/prompt-flags)
+[![npm downloads](https://img.shields.io/npm/dt/prompt-flags.svg)](https://www.npmjs.com/package/prompt-flags)
 [![license](https://img.shields.io/npm/l/prompt-flags.svg)](https://github.com/SiluPanda/prompt-flags/blob/master/LICENSE)
 [![node](https://img.shields.io/node/v/prompt-flags.svg)](https://nodejs.org)
 

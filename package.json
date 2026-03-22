@@ -1,6 +1,6 @@
 {
   "name": "prompt-flags",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI-native feature flags for prompt variants and model selection",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
