@@ -25,7 +25,11 @@ export function createClient(config: FlagClientConfig): FlagClient {
 
   function runEvaluate<T>(key: string, ctx: EvaluationContext): EvaluationResult<T> {
     const flag = resolveFlag(key)
-    const mergedCtx: EvaluationContext = { ...config.defaultContext, ...ctx }
+    const mergedCtx: EvaluationContext = {
+      ...config.defaultContext,
+      ...ctx,
+      custom: { ...config.defaultContext?.custom, ...ctx.custom },
+    }
     const result = evaluate<T>(flag, mergedCtx, overrides)
     config.onEvaluation?.(result)
     return result
