@@ -56,7 +56,11 @@ export function evaluateCondition(ctx: EvaluationContext, condition: RuleConditi
       result = Number(attrValue) <= Number(value)
       break
     case 'matches':
-      result = typeof attrValue === 'string' && new RegExp(String(value)).test(attrValue)
+      try {
+        result = typeof attrValue === 'string' && new RegExp(String(value)).test(attrValue)
+      } catch {
+        result = false
+      }
       break
     case 'exists':
       result = attrValue !== undefined && attrValue !== null

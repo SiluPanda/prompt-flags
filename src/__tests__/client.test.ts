@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { createClient } from '../client'
+import { selectVariantByRollout } from '../bucket'
+import { evaluateCondition } from '../conditions'
 import {
   FlagConfiguration,
   FlagClient,
@@ -342,6 +344,66 @@ describe('createClient', () => {
       c.isEnabled('feature-x', baseCtx)
       expect(cb).toHaveBeenCalledOnce()
       expect(cb.mock.calls[0][0].flagKey).toBe('feature-x')
+    })
+  })
+
+  describe('regression: rollout zero-weight safety', () => {
+    it('does not crash or produce NaN with zero-weight rollout', () => {
+      const result = selectVariantByRollout(
+        [{ variant: 'a', weight: 0 }, { variant: 'b', weight: 0 }],
+        5000
+      )
+      expect(result).toBe('a')
+    })
+
+    it('returns empty string for empty rollout', () => {
+      const result = selectVariantByRollout([], 5000)
+      expect(result).toBe('')
+    })
+  })
+
+  describe('regression: invalid regex in matches operator', () => {
+    it('returns false for invalid regex pattern instead of crashing', () => {
+      const result = evaluateCondition(
+        { key: 'user-1', email: 'test@example.com' },
+        { attribute: 'email', operator: 'matches', value: '[invalid' }
+      )
+      expect(result).toBe(false)
+    })
+  })
+
+  describe('regression: deep merge of custom attributes', () => {
+    it('preserves defaultContext custom attributes when ctx also has custom', () => {
+      const customConfig = {
+        ...config,
+        flags: [
+          ...config.flags,
+          {
+            key: 'custom-check',
+            type: 'boolean' as const,
+            enabled: true,
+            defaultVariant: 'on',
+            variants: [
+              { key: 'on', value: true },
+              { key: 'off', value: false },
+            ],
+            rules: [{
+              conditions: [
+                { attribute: 'custom.source', operator: 'equals' as const, value: 'default-source' },
+              ],
+              serve: { variant: 'on' },
+            }],
+          },
+        ],
+      }
+      const c = createClient({
+        config: customConfig,
+        defaultContext: { key: 'user', custom: { source: 'default-source', extra: 'kept' } },
+      })
+      // ctx.custom overrides source but defaultContext.custom.extra should survive
+      const result = c.isEnabled('custom-check', { key: 'user', custom: { other: 'value' } })
+      // source comes from defaultContext, should still match
+      expect(result).toBe(true)
     })
   })
 })
